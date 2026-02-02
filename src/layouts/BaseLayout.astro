@@ -5,55 +5,91 @@ interface Props {
 }
 
 const {
-  title = 'Al Sultan Premier Medical Center - Excellence in Healthcare',
-  description = 'Al Sultan PMC offers comprehensive medical services with expert doctors, state-of-the-art facilities, and compassionate care. Book your appointment today.',
+  title = 'Al Sultan Premier Medical Center - أفضل مركز طبي في قطر | Doha Qatar',
+  description = 'مركز السلطان الطبي في الدوحة - قطر. خدمات طبية متكاملة، أطباء خبراء، طب الأسنان، الجلدية، العلاج الطبيعي. Al Sultan PMC - Premier healthcare in Qatar with expert doctors, dental care, dermatology, physiotherapy. Book your appointment today in Doha, Qatar.',
 } = Astro.props;
+
+const siteUrl = Astro.site || 'https://alsultanpmc.com';
+const ogImageUrl = new URL('/alsultanpmc_hero.jpg', siteUrl).toString();
 
 import '@/styles/global.css';
 import WhatsAppButton from '@/components/WhatsAppButton.astro';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <meta name="keywords" content="مركز طبي قطر, Al Sultan Medical Center Qatar, Doha medical center, مركز السلطان الطبي, Qatar healthcare, Doha doctors, dental clinic Qatar, dermatology Qatar, physiotherapy Qatar, عيادة الدوحة, طبيب قطر, Al Khartiyath clinic, مركز طبي الخرطيات" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="author" content="Al Sultan Premier Medical Center" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={siteUrl} />
     
-    <!-- Open Graph / Facebook -->
+    <!-- Geo Tags for Qatar -->
+    <meta name="geo.region" content="QA" />
+    <meta name="geo.placename" content="Doha" />
+    <meta name="geo.position" content="25.354826;51.183884" />
+    <meta name="ICBM" content="25.354826, 51.183884" />
+    
+    <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:site_name" content="Al Sultan Premier Medical Center" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/og-image.jpg" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Al Sultan Premier Medical Center - Qatar" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ar_QA" />
     
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content="/og-image.jpg" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content="Al Sultan Premier Medical Center - Qatar" />
+    
+    <!-- WhatsApp Specific -->
+    <meta property="og:image:secure_url" content={ogImageUrl} />
     
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
     <title>{title}</title>
     
-    <!-- Schema.org markup for medical clinic -->
+    <!-- Schema.org markup for medical clinic in Qatar -->
     <script is:inline type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "MedicalClinic",
       "name": "Al Sultan Premier Medical Center",
-      "image": "/logo.png",
+      "alternateName": "مركز السلطان الطبي",
+      "image": ogImageUrl,
+      "logo": new URL('/logo.png', siteUrl).toString(),
       "description": description,
+      "url": siteUrl,
+      "telephone": "+974 3000 5925",
+      "email": "info@alsultanpmc.com",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "King Fahd Road",
-        "addressLocality": "Riyadh",
-        "addressCountry": "SA"
+        "streetAddress": "Building No: 7, Street 445, Al Khartiyath",
+        "addressLocality": "Doha",
+        "addressRegion": "Doha",
+        "postalCode": "",
+        "addressCountry": "QA"
       },
-      "telephone": "+966123456789",
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "25.354826",
+        "longitude": "51.183884"
+      },
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Saturday", "Sunday"],
+          "dayOfWeek": ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
           "opens": "08:00",
           "closes": "22:00"
         },
@@ -65,12 +101,26 @@ import WhatsAppButton from '@/components/WhatsAppButton.astro';
         }
       ],
       "medicalSpecialty": [
-        "Cardiology",
-        "Orthopedics",
-        "Pediatrics",
-        "Neurology",
+        "GeneralPractice",
+        "Dentistry",
         "Dermatology",
-        "GeneralSurgery"
+        "Physiotherapy",
+        "LaboratoryService"
+      ],
+      "areaServed": {
+        "@type": "City",
+        "name": "Doha",
+        "containedIn": {
+          "@type": "Country",
+          "name": "Qatar"
+        }
+      },
+      "priceRange": "$$",
+      "sameAs": [
+        "https://www.facebook.com/alsultanpmc",
+        "https://www.instagram.com/alsultanpmc/",
+        "https://www.tiktok.com/@alsultanpmc",
+        "https://snapchat.com/t/sRCPBGzs"
       ]
     })} />
   </head>
