@@ -37,7 +37,7 @@ export default function QuickStats(_props: QuickStatsProps = {}) {
   return (
     <section ref={sectionRef} className="section-padding bg-primary text-white">
       <div className="container mx-auto container-padding">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-12 max-w-4xl mx-auto">
           {statsData.map((stat: Stat) => (
             <StatCard key={stat.id} stat={stat} isVisible={isVisible} />
           ))}
