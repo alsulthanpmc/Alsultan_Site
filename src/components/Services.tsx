@@ -68,14 +68,14 @@ export default function Services({ services }: ServicesProps) {
                   key={category.id}
                   value={category.id}
                   className={cn(
-                    'w-full px-5 py-3 rounded-full font-semibold text-sm md:text-base transition-all duration-200 border border-transparent text-center justify-center',
+                    'w-full px-6 py-4 rounded-xl font-semibold text-base md:text-lg transition-all duration-200 border border-transparent text-center justify-center',
                     'data-[state=inactive]:bg-white/80 data-[state=inactive]:text-gray-700 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-sm',
                     'data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105',
-                    'flex items-center gap-2'
+                    'flex items-center gap-2 touch-manipulation'
                   )}
                 >
-                  <Icon className="w-5 h-5" />
-                  <span className="hidden sm:inline">{category.label}</span>
+                  <Icon className="w-6 h-6" />
+                  <span>{category.label}</span>
                 </Tabs.Trigger>
               );
             })}
