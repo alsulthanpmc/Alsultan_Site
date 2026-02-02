@@ -1,0 +1,81 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Al Sultan Premier Medical Center - Excellence in Healthcare',
+  description = 'Al Sultan PMC offers comprehensive medical services with expert doctors, state-of-the-art facilities, and compassionate care. Book your appointment today.',
+} = Astro.props;
+
+import '@/styles/global.css';
+import WhatsAppButton from '@/components/WhatsAppButton.astro';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/og-image.jpg" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content="/og-image.jpg" />
+    
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title>{title}</title>
+    
+    <!-- Schema.org markup for medical clinic -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "MedicalClinic",
+      "name": "Al Sultan Premier Medical Center",
+      "image": "/logo.png",
+      "description": description,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "King Fahd Road",
+        "addressLocality": "Riyadh",
+        "addressCountry": "SA"
+      },
+      "telephone": "+966123456789",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Saturday", "Sunday"],
+          "opens": "08:00",
+          "closes": "22:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Friday",
+          "opens": "16:00",
+          "closes": "22:00"
+        }
+      ],
+      "medicalSpecialty": [
+        "Cardiology",
+        "Orthopedics",
+        "Pediatrics",
+        "Neurology",
+        "Dermatology",
+        "GeneralSurgery"
+      ]
+    })} />
+  </head>
+  <body>
+    <WhatsAppButton />
+    <slot />
+  </body>
+</html>

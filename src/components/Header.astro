@@ -1,0 +1,93 @@
+---
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-transparent">
+  <nav class="container mx-auto px-3 md:px-5 mt-3 md:mt-4 bg-[#8DC63F] text-white rounded-full shadow-xl border border-[#8DC63F]/80">
+    <div class="flex items-center justify-between h-20 gap-4">
+      <!-- Mobile Menu Button (left on mobile) / CTA (left on desktop) -->
+      <div class="flex items-center">
+        <button
+          id="mobile-menu-button"
+          class="md:hidden p-2 text-white/90 hover:text-white transition-colors"
+          aria-label="Toggle menu"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+
+        <a
+          href="#contact"
+          class="hidden md:inline-flex items-center px-6 py-2.5 bg-[#0F5C9E] hover:bg-[#0D4E85] text-white rounded-full font-semibold transition-all shadow-lg shadow-[#0F5C9E]/30"
+        >
+          Book Appointment
+        </a>
+      </div>
+
+      <!-- Desktop Navigation (center) -->
+      <div class="hidden md:flex flex-1 items-center justify-center space-x-8">
+        <a href="#home" class="text-white/90 hover:text-white transition-colors font-medium">Home</a>
+        <a href="#about" class="text-white/90 hover:text-white transition-colors font-medium">About</a>
+        <a href="#departments" class="text-white/90 hover:text-white transition-colors font-medium">Departments</a>
+        <a href="#services" class="text-white/90 hover:text-white transition-colors font-medium">Services</a>
+        <a href="#doctors" class="text-white/90 hover:text-white transition-colors font-medium">Doctors</a>
+        <a href="#contact" class="text-white/90 hover:text-white transition-colors font-medium">Contact</a>
+      </div>
+
+      <!-- Logo (right) -->
+      <a href="#home" class="flex items-center ml-auto h-16 md:h-20 -mr-3 group">
+        <div class="h-full px-3 md:px-4 bg-[#8DC63F] rounded-full shadow-lg shadow-black/10 border border-white/50 flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
+          <img 
+            src="/logo.png" 
+            alt="Al Sultan Premier Medical Center" 
+            class="h-full w-auto object-contain"
+          />
+        </div>
+      </a>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden pb-4 border-t border-white/20 mt-2 pt-4 text-white">
+      <div class="flex flex-col space-y-4">
+        <a href="#home" class="mobile-menu-link text-white/90 hover:text-white transition-colors font-medium">Home</a>
+        <a href="#about" class="mobile-menu-link text-white/90 hover:text-white transition-colors font-medium">About</a>
+        <a href="#departments" class="mobile-menu-link text-white/90 hover:text-white transition-colors font-medium">Departments</a>
+        <a href="#services" class="mobile-menu-link text-white/90 hover:text-white transition-colors font-medium">Services</a>
+        <a href="#doctors" class="mobile-menu-link text-white/90 hover:text-white transition-colors font-medium">Doctors</a>
+        <a href="#contact" class="mobile-menu-link text-white/90 hover:text-white transition-colors font-medium">Contact</a>
+        <a
+          href="#contact"
+          class="mobile-menu-link inline-flex items-center justify-center px-6 py-2.5 bg-[#0F5C9E] hover:bg-[#0D4E85] text-white rounded-full font-semibold transition-all shadow-lg shadow-[#0F5C9E]/30"
+        >
+          Book Appointment
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  // Mobile menu toggle
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+
+  mobileMenuButton?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+
+  // Close mobile menu when clicking on a link
+  mobileMenuLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+    });
+  });
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (!target.closest('nav')) {
+      mobileMenu?.classList.add('hidden');
+    }
+  });
+</script>

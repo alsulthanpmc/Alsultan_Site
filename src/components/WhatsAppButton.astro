@@ -1,0 +1,45 @@
+---
+import { MessageCircle } from '@lucide/astro';
+import contactData from '@/data/contact.json';
+
+// Format the WhatsApp number by removing non-numeric characters
+const phoneNumber = contactData.whatsapp.replace(/\D/g, '');
+const whatsappUrl = `https://wa.me/${phoneNumber}?text=Hello%20Al%20Sultan%20PMC%2C%20I%20would%20like%20to%20inquire%20about%20your%20services.`;
+---
+
+<a
+  href={whatsappUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 bg-green-500 hover:bg-green-600 active:bg-green-700 text-white rounded-full p-3 sm:p-4 shadow-lg hover:shadow-xl transition-all hover:scale-110 active:scale-95 z-50 flex items-center justify-center group touch-manipulation"
+  aria-label="Chat with us on WhatsApp"
+  title="Chat with us on WhatsApp"
+>
+  <!-- WhatsApp Icon -->
+  <MessageCircle class="w-6 h-6 sm:w-7 sm:h-7" />
+  
+  <!-- Tooltip text -->
+  <span class="absolute right-14 sm:right-16 bg-green-600 text-white text-xs sm:text-sm py-1.5 px-2.5 sm:py-2 sm:px-3 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+    Chat with us!
+  </span>
+</a>
+
+<style>
+  /* Optional: Add a pulsing animation for attention */
+  @keyframes pulse-whatsapp {
+    0% {
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+    }
+  }
+
+  /* Uncomment below to enable pulse animation */
+  /* a:hover {
+    animation: pulse-whatsapp 1.5s infinite;
+  } */
+</style>

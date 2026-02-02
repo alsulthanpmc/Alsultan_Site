@@ -1,0 +1,71 @@
+# Dependabot configuration for automated dependency updates
+# Docs: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  # Enable version updates for npm (pnpm uses npm registry)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "foodworld"
+    labels:
+      - "dependencies"
+      - "automated"
+    # Group non-security updates together
+    groups:
+      astro:
+        patterns:
+          - "@astrojs/*"
+          - "astro"
+      lucide:
+        patterns:
+          - "@lucide/*"
+          - "lucide-*"
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react*"
+      tailwind:
+        patterns:
+          - "tailwindcss"
+          - "@tailwindcss/*"
+          - "tailwind-*"
+      dev-dependencies:
+        dependency-type: "development"
+    # Ignore major version updates for production dependencies (manual review recommended)
+    ignore:
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "tailwindcss"
+        update-types: ["version-update:semver-major"]
+    # Rebase strategy for keeping PRs up to date
+    rebase-strategy: "auto"
+    # Commit message preferences
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
+  # Enable security updates with daily checks
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 10
+    labels:
+      - "security"
+      - "dependencies"
+      - "critical"
+    # Allow all security updates immediately
+    allow:
+      - dependency-type: "all"
+    commit-message:
+      prefix: "security"
+      include: "scope"

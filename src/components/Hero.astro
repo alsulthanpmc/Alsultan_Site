@@ -1,0 +1,135 @@
+---
+import { MessageCircle } from '@lucide/astro';
+import contactData from '@/data/contact.json';
+---
+
+<section id="home" class="relative min-h-screen flex items-center pt-20 sm:pt-24 pb-8 sm:pb-0 bg-gradient-to-br from-luxury-900 via-luxury-800 to-luxury-900 overflow-hidden">
+  <!-- Background Gradient Overlay -->
+  <div class="absolute inset-0 bg-gradient-to-br from-primary/10 via-luxury-600/20 to-accent/10"></div>
+  
+  <!-- Animated Background Shapes -->
+  <div class="absolute top-20 left-5 sm:left-10 w-48 sm:w-72 h-48 sm:h-72 bg-primary/10 rounded-full blur-3xl animate-float"></div>
+  <div class="absolute bottom-20 right-5 sm:right-10 w-64 sm:w-96 h-64 sm:h-96 bg-accent/10 rounded-full blur-3xl animate-float-delayed"></div>
+  
+  <div class="container mx-auto container-padding relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <!-- Text Content -->
+      <div class="animate-on-scroll text-center lg:text-left">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
+          Welcome to <span class="text-accent">Al Sultan</span><br />
+          <span class="bg-gradient-to-r from-luxury-300 to-luxury-400 bg-clip-text text-transparent">Premier Medical Center</span>
+        </h1>
+        <p class="text-lg sm:text-xl text-luxury-100 mb-4 sm:mb-6 leading-relaxed">
+          Excellence in Healthcare, Compassion in Care
+        </p>
+        <p class="text-base sm:text-lg text-luxury-200 mb-6 sm:mb-8 max-w-2xl mx-auto lg:mx-0">
+          Experience world-class medical services with our expert team of doctors and state-of-the-art facilities. 
+          Your health and wellness are our top priorities.
+        </p>
+        
+        <!-- CTA Button -->
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
+          <a
+            href={`https://wa.me/${contactData.whatsapp.replace(/\s/g, '')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-green-500 hover:bg-green-600 active:bg-green-700 text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl active:scale-95 touch-manipulation"
+          >
+            <MessageCircle class="w-5 h-5 mr-2" />
+            WhatsApp Us
+          </a>
+        </div>
+
+        <!-- Quick Info -->
+        <div class="grid grid-cols-2 gap-3 sm:gap-4 mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-luxury-600/30 max-w-md mx-auto lg:mx-0">
+          <div>
+            <div class="text-2xl sm:text-3xl font-bold text-accent">Since 2020</div>
+            <div class="text-xs sm:text-sm text-luxury-300">Serving Excellence</div>
+          </div>
+          <div>
+            <div class="text-2xl sm:text-3xl font-bold text-accent">10+</div>
+            <div class="text-xs sm:text-sm text-luxury-300">Expert Doctors</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Image -->
+      <div class="animate-on-scroll lg:order-last mt-8 lg:mt-0">
+        <div class="relative animate-float-smooth">
+          <div class="absolute inset-0 bg-gradient-to-br from-accent/30 to-primary/20 rounded-2xl sm:rounded-3xl opacity-40 blur-3xl animate-pulse-slow"></div>
+          <div class="relative bg-gradient-to-br from-white/5 to-white/10 rounded-2xl sm:rounded-3xl p-2 sm:p-4 backdrop-blur-sm border border-white/20 shadow-2xl">
+            <img 
+              src="/alsultanpmc_hero.jpg" 
+              alt="Al Sultan Premier Medical Center" 
+              class="w-full h-auto rounded-xl sm:rounded-2xl shadow-xl object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes float-delayed {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(20px);
+    }
+  }
+
+  @keyframes float-smooth {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+  }
+
+  @keyframes pulse-slow {
+    0%, 100% {
+      opacity: 0.4;
+    }
+    50% {
+      opacity: 0.6;
+    }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: float-delayed 8s ease-in-out infinite;
+  }
+
+  .animate-float-smooth {
+    animation: float-smooth 4s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-slow 3s ease-in-out infinite;
+  }
+</style>
+
+<script>
+  import { observeElements } from '@/utils/observer';
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    observeElements('.animate-on-scroll', (element) => {
+      element.classList.add('visible');
+    });
+  });
+</script>

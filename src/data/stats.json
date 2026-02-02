@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "label": "Since",
+    "value": 2020,
+    "suffix": ""
+  },
+  {
+    "id": 2,
+    "label": "Expert Doctors",
+    "value": 10,
+    "suffix": "+"
+  },
+  {
+    "id": 3,
+    "label": "Happy Patients",
+    "value": 100000,
+    "suffix": "+"
+  },
+  {
+    "id": 4,
+    "label": "Departments",
+    "value": 5,
+    "suffix": "+"
+  }
+]

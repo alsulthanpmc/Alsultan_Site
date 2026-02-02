@@ -1,0 +1,99 @@
+---
+import { Check, Zap, Eye, Heart } from '@lucide/astro';
+---
+
+<section id="about" class="section-padding bg-white">
+  <div class="container mx-auto container-padding">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <!-- Text Content -->
+      <div class="animate-on-scroll">
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
+          About <span class="text-primary">Al Sultan PMC</span>
+        </h2>
+        <p class="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6 leading-relaxed">
+          Al Sultan Premier Medical Center stands out for its comprehensive range of services and specialties, including Gynecology, Dermatology, Cosmetic Dental, Orthodontics, General Medicine, and integrated Laboratory and Pharmacy services. Our state-of-the-art facilities are designed to offer a comfortable and welcoming environment for all our patients.
+        </p>
+        <p class="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8 leading-relaxed">
+          Our team of 80-100 dedicated professionals brings together a wealth of expertise and experience, ensuring that every patient receives the best possible care. Whether you are seeking routine medical services or specialized treatments, you can trust Al Sultan Premier Medical Center to meet your healthcare needs with excellence and compassion.
+        </p>
+        
+        <!-- Features List -->
+        <div class="space-y-3 sm:space-y-4">
+          <div class="flex items-start">
+            <div class="flex-shrink-0 w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center mt-1">
+              <Check class="w-4 h-4 text-primary" />
+            </div>
+            <p class="ml-3 text-sm sm:text-base text-gray-700">Board-certified physicians across all specialties</p>
+          </div>
+          <div class="flex items-start">
+            <div class="flex-shrink-0 w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center mt-1">
+              <Check class="w-4 h-4 text-primary" />
+            </div>
+            <p class="ml-3 text-gray-700">State-of-the-art medical equipment and technology</p>
+          </div>
+          <div class="flex items-start">
+            <div class="flex-shrink-0 w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center mt-1">
+              <Check class="w-4 h-4 text-primary" />
+            </div>
+            <p class="ml-3 text-gray-700">Comprehensive diagnostic and treatment facilities</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Value Cards -->
+      <div class="animate-on-scroll space-y-4 sm:space-y-6 mt-8 lg:mt-0">
+        <!-- Mission -->
+        <div class="bg-gradient-to-br from-primary/5 to-primary/10 p-4 sm:p-6 rounded-xl border border-primary/20">
+          <div class="flex items-center mb-2 sm:mb-3">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-lg flex items-center justify-center text-white mr-3 sm:mr-4 flex-shrink-0">
+              <Zap class="w-5 h-5 sm:w-6 sm:h-6" />
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-gray-900">Our Mission</h3>
+          </div>
+          <p class="text-sm sm:text-base text-gray-600">
+            To provide exceptional healthcare services that improve the quality of life for our patients 
+            through advanced medical expertise and compassionate care.
+          </p>
+        </div>
+
+        <!-- Vision -->
+        <div class="bg-gradient-to-br from-accent/5 to-accent/10 p-4 sm:p-6 rounded-xl border border-accent/20">
+          <div class="flex items-center mb-2 sm:mb-3">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-accent rounded-lg flex items-center justify-center text-white mr-3 sm:mr-4 flex-shrink-0">
+              <Eye class="w-5 h-5 sm:w-6 sm:h-6" />
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-gray-900">Our Vision</h3>
+          </div>
+          <p class="text-sm sm:text-base text-gray-600">
+            To be the leading healthcare provider in the region, recognized for clinical excellence, 
+            innovation, and patient satisfaction.
+          </p>
+        </div>
+
+        <!-- Values -->
+        <div class="bg-gradient-to-br from-gray-50 to-gray-100 p-4 sm:p-6 rounded-xl border border-gray-200">
+          <div class="flex items-center mb-2 sm:mb-3">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gray-700 rounded-lg flex items-center justify-center text-white mr-3 sm:mr-4 flex-shrink-0">
+              <Heart class="w-5 h-5 sm:w-6 sm:h-6" />
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-gray-900">Our Values</h3>
+          </div>
+          <p class="text-sm sm:text-base text-gray-600">
+            Excellence, integrity, compassion, and respect guide everything we do. We are committed to 
+            treating every patient with dignity and providing the highest standard of care.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { observeElements } from '@/utils/observer';
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    observeElements('.animate-on-scroll', (element) => {
+      element.classList.add('visible');
+    });
+  });
+</script>
