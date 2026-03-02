@@ -3,6 +3,7 @@ import { FacebookIcon, InstagramIcon, LinkedinIcon, MessageCircle } from 'lucide
 interface ContactInfo {
   name: string;
   phone: string;
+  landline?: string;
   whatsapp: string;
   email: string;
   address: string;
