@@ -1,15 +1,17 @@
 {
   "name": "Al Sultan Premier Medical Center",
   "phone": "+974 3000 5925",
+  "landline": "+974 4444 1275",
   "whatsapp": "+974 3000 5925",
-  "email": "info@alsultanpmc.com",
+  "email": "Info@sultanpremier.com",
   "address": "Building No: 7, Street 445, Al Khartiyath - Doha, Qatar",
-  "hours": "Saturday - Thursday: 8:00 AM - 10:00 PM | Friday: 4:00 PM - 10:00 PM",
+  "hours": "Saturday - Thursday: 8:00 AM - 10:00 PM | Friday: 4:00 PM - 9:00 PM",
   "social": {
     "facebook": "https://www.facebook.com/alsultanpmc",
     "instagram": "https://www.instagram.com/alsultanpmc/",
     "tiktok": "https://www.tiktok.com/@alsultanpmc",
     "snapchat": "https://snapchat.com/t/sRCPBGzs"
+    ,"linkedin": "https://www.linkedin.com/company/al-sultan-premier-medical-center/"
   },
   "mapUrl": "https://www.google.com/maps"
 }

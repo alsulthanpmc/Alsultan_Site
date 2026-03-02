@@ -16,8 +16,20 @@ interface Service {
   };
 }
 
+interface Department {
+  id: string;
+  slug: string;
+  data: {
+    title: string;
+    description: string;
+    icon: string;
+    services: string[];
+  };
+}
+
 interface ServicesProps {
   services: Service[];
+  departments?: Department[];
 }
 
 const categories = [
@@ -30,7 +42,16 @@ const categories = [
   { id: 'physiotherapy', label: 'Physiotherapy', icon: Dumbbell },
 ];
 
-export default function Services({ services }: ServicesProps) {
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  '😁': Smile,
+  '🦷': Activity,
+  '✨': Sparkles,
+  '🏥': Stethoscope,
+  '🔬': FlaskConical,
+  '💪': Dumbbell,
+};
+
+export default function Services({ services, departments }: ServicesProps) {
   const [activeTab, setActiveTab] = useState('cosmetic-dentistry');
   const servicesByCategory = categories.map((category) => ({
     ...category,
@@ -54,32 +75,40 @@ export default function Services({ services }: ServicesProps) {
           </p>
         </div>
 
+        {/* Departments inline - show as quick tiles that switch the service tab */}
+        {departments && departments.length > 0 && (
+          <div className="w-full max-w-5xl mx-auto flex flex-wrap justify-center gap-4 mb-8">
+            {departments.map((dept) => {
+              const Icon = iconMap[dept.data.icon] || Stethoscope;
+              return (
+                <button
+                  key={dept.id}
+                  onClick={() => setActiveTab(dept.slug)}
+                  className={cn(
+                    'w-[180px] sm:w-[200px] md:w-[210px] lg:w-[220px]',
+                    'group p-4 bg-white border-2 border-gray-200 rounded-xl',
+                    'hover:border-primary hover:shadow-lg transition-all',
+                    'flex flex-col items-center text-center'
+                  )}
+                >
+                  <div className="mb-2 text-primary group-hover:scale-110 transition-transform">
+                    <Icon className="w-10 h-10" />
+                  </div>
+                  <h3 className="font-semibold text-gray-900 group-hover:text-primary transition-colors text-sm md:text-base">
+                    {dept.data.title}
+                  </h3>
+                </button>
+              );
+            })}
+          </div>
+        )}
+
         <Tabs.Root
           value={activeTab}
           onValueChange={setActiveTab}
           className="w-full"
         >
-          {/* Tab List */}
-          <Tabs.List className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8 w-full max-w-5xl mx-auto justify-items-stretch">
-            {servicesByCategory.map((category) => {
-              const Icon = category.icon;
-              return (
-                <Tabs.Trigger
-                  key={category.id}
-                  value={category.id}
-                  className={cn(
-                    'w-full px-6 py-4 rounded-xl font-semibold text-base md:text-lg transition-all duration-200 border border-transparent text-center justify-center',
-                    'data-[state=inactive]:bg-white/80 data-[state=inactive]:text-gray-700 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-sm',
-                    'data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105',
-                    'flex items-center gap-2 touch-manipulation'
-                  )}
-                >
-                  <Icon className="w-6 h-6" />
-                  <span>{category.label}</span>
-                </Tabs.Trigger>
-              );
-            })}
-          </Tabs.List>
+          {/* Tab triggers removed: department tiles above act as primary controls */}
 
           {/* Tab Content */}
           {servicesByCategory.map((category) => (

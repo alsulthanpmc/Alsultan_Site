@@ -101,6 +101,14 @@ export default function ContactForm({ contactInfo }: ContactFormProps) {
                   <a href={`tel:${contactInfo.phone}`} className="font-medium text-sm sm:text-base text-primary hover:text-primary-600 transition-colors touch-manipulation">
                     {contactInfo.phone}
                   </a>
+                  {contactInfo.landline && (
+                    <div>
+                      <div className="text-xs sm:text-sm text-gray-500">Landline</div>
+                      <a href={`tel:${contactInfo.landline}`} className="font-medium text-sm sm:text-base text-primary hover:text-primary-600 transition-colors touch-manipulation">
+                        {contactInfo.landline}
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="flex items-center gap-3">

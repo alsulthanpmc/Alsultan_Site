@@ -7,6 +7,7 @@ interface Doctor {
   name: string;
   specialty: string;
   image: string;
+  active?: boolean;
 }
 
 interface DoctorsSliderProps {
@@ -16,12 +17,15 @@ interface DoctorsSliderProps {
 export default function DoctorsSlider({ doctors }: DoctorsSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // Filter out inactive doctors; keep order
+  const visibleList = doctors.filter((d) => d.active !== false);
+
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % doctors.length);
+      setCurrentIndex((prev) => (prev + 1) % visibleList.length);
     }, 3000);
     return () => clearInterval(timer);
-  }, [doctors.length]);
+  }, [visibleList.length]);
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % doctors.length);
@@ -37,9 +41,9 @@ export default function DoctorsSlider({ doctors }: DoctorsSliderProps) {
 
   // Calculate which doctors to show (current and next 2)
   const visibleDoctors = [
-    doctors[currentIndex],
-    doctors[(currentIndex + 1) % doctors.length],
-    doctors[(currentIndex + 2) % doctors.length],
+    visibleList[currentIndex],
+    visibleList[(currentIndex + 1) % visibleList.length],
+    visibleList[(currentIndex + 2) % visibleList.length],
   ];
 
   return (
@@ -60,7 +64,7 @@ export default function DoctorsSlider({ doctors }: DoctorsSliderProps) {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {visibleDoctors.map((doctor, idx) => (
                 <motion.div
-                  key={`${doctor.id}-${currentIndex}-${idx}`}
+                key={`${doctor.id}-${currentIndex}-${idx}`}
                   initial={{ opacity: 0, y: 20, scale: 0.98 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ duration: 0.35, delay: idx * 0.08, ease: 'easeOut' }}
@@ -138,22 +142,22 @@ export default function DoctorsSlider({ doctors }: DoctorsSliderProps) {
             </button>
           </div>
 
-          {/* Dots Indicator */}
-          <div className="flex justify-center gap-2 mt-8">
-            {doctors.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={cn(
-                  'w-2 h-2 rounded-full transition-all',
-                  index === currentIndex
-                    ? 'bg-primary w-8'
-                    : 'bg-gray-300 hover:bg-gray-400'
-                )}
-                aria-label={`Go to doctor ${index + 1}`}
-              />
-            ))}
-          </div>
+            {/* Dots Indicator */}
+            <div className="flex justify-center gap-2 mt-8">
+              {visibleList.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={cn(
+                    'w-2 h-2 rounded-full transition-all',
+                    index === currentIndex
+                      ? 'bg-primary w-8'
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  )}
+                  aria-label={`Go to doctor ${index + 1}`}
+                />
+              ))}
+            </div>
         </div>
       </div>
     </section>
