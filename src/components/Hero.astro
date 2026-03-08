@@ -127,9 +127,16 @@ import contactData from '@/data/contact.json';
 <script>
   import { observeElements } from '@/utils/observer';
   
-  document.addEventListener('DOMContentLoaded', () => {
+  // Initialize immediately and use requestAnimationFrame as fallback
+  function initAnimations() {
     observeElements('.animate-on-scroll', (element) => {
       element.classList.add('visible');
     });
-  });
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAnimations);
+  } else {
+    requestAnimationFrame(initAnimations);
+  }
 </script>
