@@ -18,8 +18,33 @@ export function observeElements(
     });
   }, defaultOptions);
 
-  const elements = document.querySelectorAll(selector);
-  elements.forEach((element) => observer.observe(element));
+  // Query elements with retry for dynamic content
+  const queryAndObserve = () => {
+    const elements = document.querySelectorAll(selector);
+    let foundCount = 0;
+    
+    elements.forEach((element) => {
+      if (!element.classList.contains('visible')) {
+        observer.observe(element);
+        foundCount++;
+      }
+    });
+    
+    return foundCount;
+  };
+  
+  // Initial query
+  queryAndObserve();
+  
+  // Watch for dynamically added elements
+  const mutationObserver = new MutationObserver(() => {
+    queryAndObserve();
+  });
+  
+  mutationObserver.observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
 
   return observer;
 }

@@ -65,7 +65,23 @@ export default {
           '100%': { opacity: '1' },
         },
       },
+      transitionProperty: {
+        'opacity-transform': 'opacity, transform',
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    // Add scroll animator utility
+    function({ addUtilities, theme }) {
+      addUtilities({
+        '.animate-on-scroll': {
+          '@apply opacity-0 translate-y-5': {},
+          transition: 'opacity 0.6s ease-out, transform 0.6s ease-out',
+        },
+        '.animate-on-scroll.visible': {
+          '@apply opacity-100 translate-y-0': {},
+        },
+      });
+    },
+  ],
 };

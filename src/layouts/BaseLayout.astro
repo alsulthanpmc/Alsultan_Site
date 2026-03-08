@@ -127,5 +127,49 @@ import WhatsAppButton from '@/components/WhatsAppButton.astro';
   <body>
     <WhatsAppButton />
     <slot />
+    
+    <!-- Global Animation Initialization -->
+    <script>
+      import { observeElements } from '@/utils/observer';
+      
+      // Initialize all scroll animations with retry logic
+      function initializeAnimations() {
+        // Multiple attempts to ensure elements are found
+        let attempts = 0;
+        const maxAttempts = 5;
+        
+        function tryInitialize() {
+          const animatingElements = document.querySelectorAll('.animate-on-scroll');
+          
+          if (animatingElements.length > 0) {
+            observeElements('.animate-on-scroll', (element) => {
+              element.classList.add('visible');
+            });
+            return true;
+          }
+          
+          if (attempts < maxAttempts) {
+            attempts++;
+            requestAnimationFrame(tryInitialize);
+            return false;
+          }
+          return false;
+        }
+        
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', tryInitialize);
+        } else {
+          requestAnimationFrame(tryInitialize);
+        }
+      }
+      
+      // Run on page load
+      window.addEventListener('load', initializeAnimations);
+      
+      // Also try immediately in case load event already fired
+      if (document.readyState === 'complete') {
+        initializeAnimations();
+      }
+    </script>
   </body>
 </html>
