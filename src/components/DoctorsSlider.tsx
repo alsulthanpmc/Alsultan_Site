@@ -28,11 +28,11 @@ export default function DoctorsSlider({ doctors }: DoctorsSliderProps) {
   }, [visibleList.length]);
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % doctors.length);
+    setCurrentIndex((prev) => (prev + 1) % visibleList.length);
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + doctors.length) % doctors.length);
+    setCurrentIndex((prev) => (prev - 1 + visibleList.length) % visibleList.length);
   };
 
   const goToSlide = (index: number) => {

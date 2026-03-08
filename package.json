@@ -22,7 +22,7 @@
     "@lucide/astro": "^0.563.0",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-tabs": "^1.0.4",
-    "astro": "^5.17.1",
+    "astro": "^5.18.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "framer-motion": "^12.30.0",

@@ -1,4 +1,5 @@
-import { FacebookIcon, InstagramIcon, LinkedinIcon, MessageCircle } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Facebook, Instagram, Linkedin, MessageCircle } from 'lucide-react';
 
 interface ContactInfo {
   name: string;
@@ -26,17 +27,17 @@ const socials: { key: keyof NonNullable<ContactInfo['social']>; label: string; i
   {
     key: 'facebook',
     label: 'Facebook',
-    icon: FacebookIcon,
+    icon: Facebook,
   },
   {
     key: 'instagram',
     label: 'Instagram',
-    icon: InstagramIcon,
+    icon: Instagram,
   },
   {
     key: 'linkedin',
     label: 'LinkedIn',
-    icon: LinkedinIcon,
+    icon: Linkedin,
   },
   {
     key: 'tiktok',
@@ -50,10 +51,72 @@ const socials: { key: keyof NonNullable<ContactInfo['social']>; label: string; i
   },
 ];
 
+const insurancePartners = [
+  { name: 'AKTI', file: 'AKTI.jpg' },
+  { name: 'Al Koot', file: 'Alkoot.jpg' },
+  { name: 'Al Sharq', file: 'Al sharq.jpg' },
+  { name: 'Arabia', file: 'Arabia.jpg' },
+  { name: 'Doha Insurance', file: 'Doha Insurance.jpg' },
+  { name: 'General Takaful', file: 'General takaful.jpg' },
+  { name: 'GlobeMed', file: 'Globe Med.jpg' },
+  { name: 'Islamic Insurance', file: 'Islamic insurance.jpg' },
+  { name: 'Libano', file: 'Libano.jpg' },
+  { name: 'Qatar General', file: 'Qatar general.jpg' },
+  { name: 'QLM', file: 'QLM.jpg' },
+  { name: 'Seib', file: 'Seib.jpg' },
+  { name: 'Seib 2', file: 'Seib2.jpg' },
+  { name: 'Shamel', file: 'Shamel.jpg' },
+];
+
 export default function ContactForm({ contactInfo }: ContactFormProps) {
   const whatsappHref = `https://wa.me/${contactInfo.whatsapp.replace(/\s/g, '')}`;
 
   const availableSocials = socials.filter(({ key }) => contactInfo.social?.[key]);
+  const insurancePartnersLoop = [...insurancePartners, ...insurancePartners];
+  const carouselTrackRef = useRef<HTMLDivElement | null>(null);
+  const [activePartnerIndex, setActivePartnerIndex] = useState(0);
+  const [stepSize, setStepSize] = useState(0);
+  const [disableTransition, setDisableTransition] = useState(false);
+
+  useEffect(() => {
+    const calculateStepSize = () => {
+      const track = carouselTrackRef.current;
+      const firstItem = track?.firstElementChild as HTMLDivElement | null;
+      if (!track || !firstItem) return;
+
+      const itemWidth = firstItem.getBoundingClientRect().width;
+      const computedStyles = getComputedStyle(track);
+      const gap = Number.parseFloat(computedStyles.gap || '0');
+      setStepSize(itemWidth + gap);
+    };
+
+    calculateStepSize();
+    window.addEventListener('resize', calculateStepSize);
+    return () => window.removeEventListener('resize', calculateStepSize);
+  }, []);
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setActivePartnerIndex((prev) => prev + 1);
+    }, 2000);
+
+    return () => window.clearInterval(intervalId);
+  }, []);
+
+  useEffect(() => {
+    if (activePartnerIndex !== insurancePartners.length) return;
+
+    const timeoutId = window.setTimeout(() => {
+      setDisableTransition(true);
+      setActivePartnerIndex(0);
+
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => setDisableTransition(false));
+      });
+    }, 700);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [activePartnerIndex]);
 
   return (
     <section id="contact" className="section-padding bg-white">
@@ -150,6 +213,39 @@ export default function ContactForm({ contactInfo }: ContactFormProps) {
                 </div>
               </div>
             )}
+          </div>
+        </div>
+
+        <div className="mt-8 sm:mt-10 lg:mt-12 relative overflow-hidden bg-gradient-to-br from-white via-white to-primary/[0.04] rounded-xl sm:rounded-2xl p-6 sm:p-8 lg:p-10 shadow-lg border border-gray-100">
+          <div className="text-center mb-5 sm:mb-7">
+            <div className="inline-flex items-center rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-medium px-3 py-1 mb-3">
+              Trusted Network
+            </div>
+            <h3 className="text-xl sm:text-2xl font-semibold text-primary">Our Insurance Partners</h3>
+            <p className="text-sm sm:text-base text-gray-600 mt-2">We collaborate with trusted insurance providers for smoother care access.</p>
+          </div>
+
+          <div className="relative overflow-hidden">
+            <div
+              ref={carouselTrackRef}
+              className={`flex w-max items-center gap-3 sm:gap-4 ${disableTransition ? '' : 'transition-transform duration-700 ease-in-out'}`}
+              style={{ transform: `translateX(-${activePartnerIndex * stepSize}px)` }}
+            >
+              {insurancePartnersLoop.map((partner, index) => (
+              <div
+                key={`${partner.file}-${index}`}
+                className="group relative overflow-hidden bg-gradient-to-br from-gray-100 via-white to-primary/[0.08] border border-primary/20 rounded-xl sm:rounded-2xl p-0 w-[112px] h-[112px] sm:w-[132px] sm:h-[132px] flex-shrink-0 flex items-center justify-center shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              >
+                <span className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-primary/35 to-transparent" />
+                <img
+                  src={`/Insurance_partners/${encodeURIComponent(partner.file)}`}
+                  alt={`${partner.name} logo`}
+                  loading="lazy"
+                  className="h-full w-full object-contain scale-100 contrast-125 saturate-125 brightness-95 drop-shadow-[0_8px_14px_rgba(15,23,42,0.18)] group-hover:contrast-150 group-hover:saturate-150 group-hover:scale-105 transition-all duration-300 ease-out"
+                />
+              </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
