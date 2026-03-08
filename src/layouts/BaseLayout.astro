@@ -128,15 +128,58 @@ import WhatsAppButton from '@/components/WhatsAppButton.astro';
     <WhatsAppButton />
     <slot />
     
-    <!-- Global Animation Initialization -->
-    <script>
-      import { observeElements } from '@/utils/observer';
-      
+    <!-- Global Animation Initialization Script -->
+    <script is:inline>
+    (function() {
+      // Observer utility - inline to avoid import issues
+      function observeElements(selector, callback, options = {}) {
+        const defaultOptions = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -100px 0px',
+          ...options,
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              callback(entry.target);
+              observer.unobserve(entry.target);
+            }
+          });
+        }, defaultOptions);
+
+        const queryAndObserve = () => {
+          const elements = document.querySelectorAll(selector);
+          let foundCount = 0;
+          
+          elements.forEach((element) => {
+            if (!element.classList.contains('visible')) {
+              observer.observe(element);
+              foundCount++;
+            }
+          });
+          
+          return foundCount;
+        };
+        
+        queryAndObserve();
+        
+        const mutationObserver = new MutationObserver(() => {
+          queryAndObserve();
+        });
+        
+        mutationObserver.observe(document.body, {
+          childList: true,
+          subtree: true,
+        });
+
+        return observer;
+      }
+
       // Initialize all scroll animations with retry logic
       function initializeAnimations() {
-        // Multiple attempts to ensure elements are found
         let attempts = 0;
-        const maxAttempts = 5;
+        const maxAttempts = 10;
         
         function tryInitialize() {
           const animatingElements = document.querySelectorAll('.animate-on-scroll');
@@ -156,20 +199,20 @@ import WhatsAppButton from '@/components/WhatsAppButton.astro';
           return false;
         }
         
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', tryInitialize);
-        } else {
-          requestAnimationFrame(tryInitialize);
-        }
+        tryInitialize();
       }
       
-      // Run on page load
+      // Run immediately when script executes
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeAnimations);
+      }
+      
       window.addEventListener('load', initializeAnimations);
       
-      // Also try immediately in case load event already fired
       if (document.readyState === 'complete') {
         initializeAnimations();
       }
+    })();
     </script>
   </body>
 </html>
