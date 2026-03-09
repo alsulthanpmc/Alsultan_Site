@@ -15,6 +15,21 @@ export default function QuickStats(_props: QuickStatsProps = {}) {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    // Check if already in viewport (common with client:visible hydration)
+    const rect = el.getBoundingClientRect();
+    if (
+      rect.top < window.innerHeight &&
+      rect.bottom > 0 &&
+      rect.width > 0 &&
+      rect.height > 0
+    ) {
+      setIsVisible(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -24,12 +39,10 @@ export default function QuickStats(_props: QuickStatsProps = {}) {
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.1 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+    observer.observe(el);
 
     return () => observer.disconnect();
   }, []);

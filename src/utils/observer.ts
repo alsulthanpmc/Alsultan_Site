@@ -5,7 +5,7 @@ export function observeElements(
 ) {
   const defaultOptions: IntersectionObserverInit = {
     threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px',
+    rootMargin: '0px 0px -50px 0px',
     ...options,
   };
 
@@ -21,26 +21,33 @@ export function observeElements(
   // Query elements with retry for dynamic content
   const queryAndObserve = () => {
     const elements = document.querySelectorAll(selector);
-    let foundCount = 0;
-    
+
     elements.forEach((element) => {
       if (!element.classList.contains('visible')) {
-        observer.observe(element);
-        foundCount++;
+        // If the element is already in the viewport, trigger immediately
+        const rect = element.getBoundingClientRect();
+        if (
+          rect.top < window.innerHeight &&
+          rect.bottom > 0 &&
+          rect.width > 0 &&
+          rect.height > 0
+        ) {
+          callback(element);
+        } else {
+          observer.observe(element);
+        }
       }
     });
-    
-    return foundCount;
   };
-  
+
   // Initial query
   queryAndObserve();
-  
+
   // Watch for dynamically added elements
   const mutationObserver = new MutationObserver(() => {
     queryAndObserve();
   });
-  
+
   mutationObserver.observe(document.body, {
     childList: true,
     subtree: true,
