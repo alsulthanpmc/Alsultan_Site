@@ -1,6 +1,6 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Smile, Sparkles, Stethoscope, FlaskConical, Dumbbell, ChevronRight, Activity, Pill } from 'lucide-react';
 import { cn } from '@/utils/cn';
 
@@ -55,10 +55,15 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 
 export default function Services({ services, departments }: ServicesProps) {
   const [activeTab, setActiveTab] = useState('cosmetic-dentistry');
+  const [mounted, setMounted] = useState(false);
   const servicesByCategory = categories.map((category) => ({
     ...category,
     services: services.filter((s) => s.data.category === category.id),
   }));
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const normalizePrice = (price?: string) => {
     const cleaned = price ? price.replace(/^\s*starting from\s*/i, '').trim() : '';
@@ -123,7 +128,7 @@ export default function Services({ services, departments }: ServicesProps) {
                 {category.id === activeTab && (
                   <motion.div
                     key={category.id}
-                    initial={{ opacity: 0, y: 12 }}
+                    initial={mounted ? { opacity: 0, y: 12 } : false}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -12 }}
                     transition={{ duration: 0.25, ease: 'easeOut' }}
@@ -134,7 +139,7 @@ export default function Services({ services, departments }: ServicesProps) {
                         {category.services.map((service, idx) => (
                           <motion.div
                             key={service.id}
-                            initial={{ opacity: 0, y: 10 }}
+                            initial={mounted ? { opacity: 0, y: 10 } : false}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.25, delay: idx * 0.05, ease: 'easeOut' }}
                             className="w-full h-full"

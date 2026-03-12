@@ -16,9 +16,14 @@ interface DoctorsSliderProps {
 
 export default function DoctorsSlider({ doctors }: DoctorsSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
   // Filter out inactive doctors; keep order
   const visibleList = doctors.filter((d) => d.active !== false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -65,7 +70,7 @@ export default function DoctorsSlider({ doctors }: DoctorsSliderProps) {
               {visibleDoctors.map((doctor, idx) => (
                 <motion.div
                 key={`${doctor.id}-${currentIndex}-${idx}`}
-                  initial={{ opacity: 0, y: 20, scale: 0.98 }}
+                  initial={mounted ? { opacity: 0, y: 20, scale: 0.98 } : false}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ duration: 0.35, delay: idx * 0.08, ease: 'easeOut' }}
                   className="relative bg-white rounded-2xl overflow-hidden shadow-[0_10px_30px_-12px_rgba(0,0,0,0.35)] hover:shadow-[0_16px_38px_-14px_rgba(0,0,0,0.45)] transition-shadow duration-300"
