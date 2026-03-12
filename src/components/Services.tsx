@@ -1,7 +1,7 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
-import { Smile, Sparkles, Stethoscope, FlaskConical, Dumbbell, ChevronRight, Activity } from 'lucide-react';
+import { Smile, Sparkles, Stethoscope, FlaskConical, Dumbbell, ChevronRight, Activity, Pill } from 'lucide-react';
 import { cn } from '@/utils/cn';
 
 interface Service {
@@ -9,7 +9,7 @@ interface Service {
   slug: string;
   data: {
     title: string;
-    category: 'cosmetic-dentistry' | 'general-dentistry' | 'dermatology' | 'orthodontics' | 'general-medicine' | 'laboratory' | 'physiotherapy';
+    category: 'cosmetic-dentistry' | 'general-dentistry' | 'dermatology' | 'orthodontics' | 'general-medicine' | 'laboratory' | 'physiotherapy' | 'pharmacy';
     description: string;
     price?: string;
     services?: string[];
@@ -40,6 +40,7 @@ const categories = [
   { id: 'general-medicine', label: 'General Medicine', icon: Stethoscope },
   { id: 'laboratory', label: 'Laboratory', icon: FlaskConical },
   { id: 'physiotherapy', label: 'Physiotherapy', icon: Dumbbell },
+  { id: 'pharmacy', label: 'Pharmacy', icon: Pill },
 ];
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -49,6 +50,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   '🏥': Stethoscope,
   '🔬': FlaskConical,
   '💪': Dumbbell,
+  '💊': Pill,
 };
 
 export default function Services({ services, departments }: ServicesProps) {

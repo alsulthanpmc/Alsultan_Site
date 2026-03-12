@@ -14,7 +14,7 @@ const servicesCollection = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    category: z.enum(['cosmetic-dentistry', 'general-dentistry', 'dermatology', 'orthodontics', 'general-medicine', 'laboratory', 'physiotherapy']),
+    category: z.enum(['cosmetic-dentistry', 'general-dentistry', 'dermatology', 'orthodontics', 'general-medicine', 'laboratory', 'physiotherapy', 'pharmacy']),
     description: z.string(),
     price: z.string().optional(),
     services: z.array(z.string()),
