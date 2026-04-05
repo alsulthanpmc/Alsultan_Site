@@ -15,17 +15,24 @@ jobs:
         with:
           node-version: 18
 
+      - name: Install pnpm
+        run: npm install -g pnpm
+
       - name: Install & Build
         run: |
-          npm install
-          npm run build
+          pnpm install
+          pnpm run build
 
-      - name: Deploy via webhook
-        env:
-          WEBHOOK_URL: ${{ secrets.HOSTINGER_WEBHOOK }}
+      - name: Push dist to production branch
         run: |
-          if [ -z "$WEBHOOK_URL" ]; then
-            echo "Error: HOSTINGER_WEBHOOK secret is not set"
-            exit 1
-          fi
-          curl --fail-with-body -X POST -H "Content-Type: application/json" -d '{}' "$WEBHOOK_URL"
+          cd dist
+          git init
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "Deploy build"
+          git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:production
+
+      - name: Trigger Hostinger deploy
+        run: |
+          curl -X POST "${{ secrets.HOSTINGER_WEBHOOK }}"
