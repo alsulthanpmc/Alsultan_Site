@@ -21,5 +21,11 @@ jobs:
           npm run build
 
       - name: Deploy via webhook
+        env:
+          WEBHOOK_URL: ${{ secrets.HOSTINGER_WEBHOOK }}
         run: |
-          curl -X POST "${{ secrets.HOSTINGER_WEBHOOK }}"
+          if [ -z "$WEBHOOK_URL" ]; then
+            echo "Error: HOSTINGER_WEBHOOK secret is not set"
+            exit 1
+          fi
+          curl --fail-with-body -X POST "$WEBHOOK_URL"
