@@ -28,4 +28,4 @@ jobs:
             echo "Error: HOSTINGER_WEBHOOK secret is not set"
             exit 1
           fi
-          curl --fail-with-body -X POST "$WEBHOOK_URL"
+          curl --fail-with-body -X POST -H "Content-Type: application/json" -d '{}' "$WEBHOOK_URL"
