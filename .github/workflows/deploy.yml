@@ -27,13 +27,18 @@ jobs:
 
       - name: Push dist to production branch
         run: |
-          cd dist
-          git init
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
+          git fetch origin production || true
+          git checkout production 2>/dev/null || git checkout --orphan production
+          # Remove old files but keep .git
+          git rm -rf . || true
+          # Copy built files
+          cp -r dist/* .
+          cp -r dist/.* . 2>/dev/null || true
           git add -A
-          git commit -m "Deploy build"
-          git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:production
+          git diff --cached --quiet || git commit -m "Deploy: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          git push origin production
 
       - name: Trigger Hostinger deploy
         run: |
