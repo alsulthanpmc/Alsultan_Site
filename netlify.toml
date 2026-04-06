@@ -94,14 +94,14 @@
 
 # Redirects - Force HTTPS
 [[redirects]]
-  from = "http://alsultanpmc.com/*"
-  to = "https://alsultanpmc.com/:splat"
+  from = "http://sultanpremier.com/*"
+  to = "https://sultanpremier.com/:splat"
   status = 301
   force = true
 
 [[redirects]]
-  from = "http://www.alsultanpmc.com/*"
-  to = "https://www.alsultanpmc.com/:splat"
+  from = "http://www.sultanpremier.com/*"
+  to = "https://sultanpremier.com/:splat"
   status = 301
   force = true
 
