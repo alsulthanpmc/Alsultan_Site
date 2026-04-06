@@ -75,7 +75,7 @@ export default function Services({ services, departments }: ServicesProps) {
       <div className="container mx-auto container-padding">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Our <span className="text-primary">Services</span>
+            Medical <span className="text-primary">Services</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Comprehensive medical services tailored to your healthcare needs
