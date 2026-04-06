@@ -1,0 +1,6 @@
+Please save your Al Sultan Premier Medical Center logo as:
+public/images/logo.png
+
+The logo should be the banner image with:
+- Medical caduceus symbol on green background (left)
+- "AS" logo with bilingual text on blue background (right)
