@@ -78,6 +78,13 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# www → non-www canonical redirect (301 permanent)
+[[redirects]]
+  from = "https://www.alsultanpmc.com/*"
+  to = "https://alsultanpmc.com/:splat"
+  status = 301
+  force = true
+
 # Headers for fonts
 [[headers]]
   for = "/*.woff2"

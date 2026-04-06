@@ -101,9 +101,9 @@ export default function Services({ services, departments }: ServicesProps) {
                   <div className="mb-2 text-primary group-hover:scale-110 transition-transform">
                     <Icon className="w-10 h-10" />
                   </div>
-                  <h3 className="font-semibold text-gray-900 group-hover:text-primary transition-colors text-sm md:text-base">
+                  <p className="font-semibold text-gray-900 group-hover:text-primary transition-colors text-sm md:text-base">
                     {dept.data.title}
-                  </h3>
+                  </p>
                 </button>
               );
             })}
@@ -146,9 +146,9 @@ export default function Services({ services, departments }: ServicesProps) {
                           >
                             <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-200 border border-gray-100">
                               <div className="flex items-start justify-between mb-3">
-                                <h3 className="text-xl font-bold text-gray-900">
+                                <p className="text-xl font-bold text-gray-900">
                                   {service.data.title}
-                                </h3>
+                                </p>
                                 <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-semibold">
                                   {normalizePrice(service.data.price)}
                                 </span>
@@ -181,9 +181,9 @@ export default function Services({ services, departments }: ServicesProps) {
                           <div className="text-primary mb-4 flex justify-center">
                             <Icon className="w-16 h-16" />
                           </div>
-                          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                          <p className="text-xl font-semibold text-gray-900 mb-2">
                             {category.label} Services
-                          </h3>
+                          </p>
                           <p className="text-gray-600">
                             Coming soon! We're expanding our {category.label.toLowerCase()} services.
                           </p>
