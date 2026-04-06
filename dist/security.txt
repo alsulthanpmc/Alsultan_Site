@@ -1,9 +1,0 @@
-Contact: mailto:security@alsultanpmc.com
-Expires: 2027-02-02T00:00:00.000Z
-Preferred-Languages: en, ar
-Canonical: https://sultanpremier.com/.well-known/security.txt
-Policy: https://sultanpremier.com/security-policy
-Acknowledgments: https://sultanpremier.com/security-acknowledgments
-
-# Security vulnerability reporting for Al Sultan Premier Medical Center
-# Please report any security issues to the contact email above
