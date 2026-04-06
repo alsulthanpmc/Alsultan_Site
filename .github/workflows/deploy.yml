@@ -7,8 +7,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
 
@@ -25,21 +23,11 @@ jobs:
           pnpm install
           pnpm run build
 
-      - name: Push dist to production branch
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git fetch origin production || true
-          git checkout production 2>/dev/null || git checkout --orphan production
-          # Remove old files but keep .git
-          git rm -rf . || true
-          # Copy built files
-          cp -r dist/* .
-          cp -r dist/.* . 2>/dev/null || true
-          git add -A
-          git diff --cached --quiet || git commit -m "Deploy: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-          git push origin production
-
-      - name: Trigger Hostinger deploy
-        run: |
-          curl -X POST "${{ secrets.HOSTINGER_WEBHOOK }}"
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: /public_html/
