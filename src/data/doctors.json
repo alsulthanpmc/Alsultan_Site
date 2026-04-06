@@ -1,6 +1,6 @@
 [
   { "id": 1, "name": "Doctor 1", "specialty": "Specialist", "image": "/Doct1.jpg" },
-  { "id": 2, "name": "Doctor 2", "specialty": "Specialist", "image": "/Doct2.jpg" },
+  { "id": 2, "name": "Doctor 2", "specialty": "Specialist", "image": "/Doct2.jpg", "active": false },
   { "id": 3, "name": "Doctor 3", "specialty": "Specialist", "image": "/Doct3.jpg" },
   { "id": 4, "name": "Doctor 4", "specialty": "Specialist", "image": "/Doct4.jpg" },
   { "id": 5, "name": "Doctor 5", "specialty": "Specialist", "image": "/Doct5.jpg" },
