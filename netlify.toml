@@ -80,8 +80,8 @@
 
 # www → non-www canonical redirect (301 permanent)
 [[redirects]]
-  from = "https://www.alsultanpmc.com/*"
-  to = "https://alsultanpmc.com/:splat"
+  from = "https://www.sultanpremier.com/*"
+  to = "https://sultanpremier.com/:splat"
   status = 301
   force = true
 
