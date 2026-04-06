@@ -1,1 +1,0 @@
-import{o as t}from"./observer.Cr21RxZd.js";function e(){t(".animate-on-scroll",n=>{n.classList.add("visible")})}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",e):requestAnimationFrame(()=>requestAnimationFrame(e));
