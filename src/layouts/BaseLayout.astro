@@ -133,86 +133,35 @@ import WhatsAppButton from '@/components/WhatsAppButton.astro';
     <!-- Global Animation Initialization Script -->
     <script is:inline>
     (function() {
-      // Observer utility - inline to avoid import issues
-      function observeElements(selector, callback, options = {}) {
-        const defaultOptions = {
-          threshold: 0.1,
-          rootMargin: '0px 0px -100px 0px',
-          ...options,
-        };
+      function initAnimations() {
+        var els = document.querySelectorAll('.animate-on-scroll');
+        if (!els.length) return;
 
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
             if (entry.isIntersecting) {
-              callback(entry.target);
+              entry.target.classList.add('visible');
               observer.unobserve(entry.target);
             }
           });
-        }, defaultOptions);
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-        const queryAndObserve = () => {
-          const elements = document.querySelectorAll(selector);
-          let foundCount = 0;
-          
-          elements.forEach((element) => {
-            if (!element.classList.contains('visible')) {
-              observer.observe(element);
-              foundCount++;
+        els.forEach(function(el) {
+          if (!el.classList.contains('visible')) {
+            var rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0 && rect.width > 0 && rect.height > 0) {
+              el.classList.add('visible');
+            } else {
+              observer.observe(el);
             }
-          });
-          
-          return foundCount;
-        };
-        
-        queryAndObserve();
-        
-        const mutationObserver = new MutationObserver(() => {
-          queryAndObserve();
+          }
         });
-        
-        mutationObserver.observe(document.body, {
-          childList: true,
-          subtree: true,
-        });
-
-        return observer;
       }
 
-      // Initialize all scroll animations with retry logic
-      function initializeAnimations() {
-        let attempts = 0;
-        const maxAttempts = 10;
-        
-        function tryInitialize() {
-          const animatingElements = document.querySelectorAll('.animate-on-scroll');
-          
-          if (animatingElements.length > 0) {
-            observeElements('.animate-on-scroll', (element) => {
-              element.classList.add('visible');
-            });
-            return true;
-          }
-          
-          if (attempts < maxAttempts) {
-            attempts++;
-            requestAnimationFrame(tryInitialize);
-            return false;
-          }
-          return false;
-        }
-        
-        tryInitialize();
-      }
-      
-      // Run immediately when script executes
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeAnimations);
-      }
-      
-      window.addEventListener('load', initializeAnimations);
-      
-      if (document.readyState === 'complete') {
-        initializeAnimations();
+        document.addEventListener('DOMContentLoaded', initAnimations);
+      } else {
+        requestAnimationFrame(initAnimations);
       }
     })();
     </script>
